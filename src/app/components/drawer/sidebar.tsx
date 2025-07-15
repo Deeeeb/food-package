@@ -32,6 +32,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
   const theme = useTheme();
+  console.log('open: ', open);
   return (
       <Drawer
         variant="permanent"
@@ -41,6 +42,7 @@ const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
         open={open}
+        onClick={clickDrawerOpen} role="presentation"
       >
         <DrawerHeader>
           <IconButton onClick={clickDrawerOpen}>
