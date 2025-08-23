@@ -1,19 +1,21 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { styled, useTheme  } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import HomeIcon from '@mui/icons-material/Home';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import InfoIcon from '@mui/icons-material/Info';
 const drawerWidth = 240;
 
 interface ChildProps {
@@ -32,17 +34,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
   const theme = useTheme();
-  console.log('open: ', open);
   return (
       <Drawer
-        variant="permanent"
-        sx={{
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
           width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-        open={open}
-        onClick={clickDrawerOpen} role="presentation"
+          boxSizing: 'border-box',
+        },
+      }}
+      variant="persistent"
+      anchor="left"
+      open={open}
       >
         <DrawerHeader>
           <IconButton onClick={clickDrawerOpen}>
@@ -51,11 +55,11 @@ const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
         </DrawerHeader>
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+            {['Home', 'Order', 'Cart'].map((text, index) => (
+              <ListItem key={text} disablePadding onClick={clickDrawerOpen}>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {index === 0 ? <HomeIcon /> : index === 1 ? <ReceiptIcon /> : <ShoppingCartIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
@@ -64,11 +68,11 @@ const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
           </List>
           <Divider />
           <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            {['Info'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {index % 2 === 0 ? <InfoIcon /> : <MailIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
