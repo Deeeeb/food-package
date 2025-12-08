@@ -1,3 +1,4 @@
+"use client";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -16,6 +17,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InfoIcon from '@mui/icons-material/Info';
+import Link from 'next/link';
 const drawerWidth = 240;
 
 interface ChildProps {
@@ -55,29 +57,45 @@ const Sidebar: React.FC<ChildProps> = ({ open, clickDrawerOpen }) => {
         </DrawerHeader>
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Home', 'Order', 'Cart'].map((text, index) => (
-              <ListItem key={text} disablePadding onClick={clickDrawerOpen}>
+            <ListItem disablePadding onClick={clickDrawerOpen}>
+              <Link href="/" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index === 0 ? <HomeIcon /> : index === 1 ? <ReceiptIcon /> : <ShoppingCartIcon />}
+                    <HomeIcon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary="Home" />
                 </ListItemButton>
-              </ListItem>
-            ))}
+              </Link>
+            </ListItem>
+            <ListItem disablePadding onClick={clickDrawerOpen}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ReceiptIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={clickDrawerOpen}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Cart" />
+              </ListItemButton>
+            </ListItem>
           </List>
           <Divider />
           <List>
-            {['Info'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
+            <ListItem disablePadding>
+              <Link href="/about" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                <ListItemButton onClick={clickDrawerOpen}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InfoIcon /> : <MailIcon />}
+                    <InfoIcon />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary="About" />
                 </ListItemButton>
-              </ListItem>
-            ))}
+              </Link>
+            </ListItem>
           </List>
         </Box>
       </Drawer>
